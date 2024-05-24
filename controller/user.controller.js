@@ -164,3 +164,22 @@ exports.getUserBySalary = async (req, res) => {
       .status(StatusCodes.INTERNAL_SERVER_ERROR);
   }
 };
+
+exports.updateProfilePhoto = async (req, res) => {
+  try {
+    const user = await service.userService.updateProfilePhoto(req);
+    res
+      .json({ ...baseResponse, data: user, message: "Güncelleme başarılı" })
+      .status(StatusCodes.OK);
+  } catch (error) {
+    res
+      .json({
+        ...baseResponse,
+        message: "Kullanıcı güncellenemedi",
+        error: true,
+        success: false,
+        errorMessage: error.message,
+      })
+      .status(StatusCodes.INTERNAL_SERVER_ERROR);
+  }
+};

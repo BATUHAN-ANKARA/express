@@ -29,6 +29,10 @@ const userSchema = new Schema(
       type: Schema.Types.Date,
       required: false,
     },
+    profilePhoto: {
+      type: Schema.Types.String,
+      required: false,
+    },
   },
   {
     minimize: true,

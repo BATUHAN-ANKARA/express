@@ -1,6 +1,7 @@
 const User = require("../model/user.model");
 const utils = require("../utils/index");
 const userResponse = require("../dto/user.dto");
+const fileService = require("./file.service");
 
 exports.register = async (req) => {
   try {
@@ -89,5 +90,20 @@ exports.getAllUsers = async (req) => {
     return users;
   } catch (error) {
     throw new Error(error.message);
+  }
+};
+
+exports.updateProfilePhoto = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const str = await fileService.uploadImage(req, res);
+    const json = await User.findByIdAndUpdate(
+      id,
+      { profilePhoto: str },
+      { new: true }
+    );
+    return json;
+  } catch (error) {
+    throw new Error(error);
   }
 };
